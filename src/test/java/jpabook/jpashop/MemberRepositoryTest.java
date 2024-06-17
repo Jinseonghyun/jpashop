@@ -1,20 +1,18 @@
 package jpabook.jpashop;
 
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-//@RunWith(SpringRunner.class)  // JUnit 한테 알려준다. spring이랑 관련된 걸로 테스트할거야
-@ExtendWith(SpringExtension.class)
+//@RunWith(SpringRunner.class)  // JUnit4 한테 알려준다. spring이랑 관련된 걸로 테스트할거야
+@ExtendWith(SpringExtension.class) // // JUnit5 한테 알려준다. spring이랑 관련된 걸로 테스트할거야
 @SpringBootTest //  스프링 부트로 테스트 돌린다.
 public class MemberRepositoryTest {
 
