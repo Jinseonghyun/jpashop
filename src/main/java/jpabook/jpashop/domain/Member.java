@@ -15,7 +15,7 @@ public class Member {
     @Column(name = "member_id") // Fk(외래키)가 MEMBER_ID
     private Long id;
 
-    private String username;
+    private String name;
 
     @Embedded // 내장 타입을 포함했다.
     private Address address;

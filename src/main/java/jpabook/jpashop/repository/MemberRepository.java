@@ -3,15 +3,24 @@ package jpabook.jpashop.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository // 스프링에서 제공하는 @Component scan 의 대상이 되서 자동으로 스프링 빈으로 관리됨
+@RequiredArgsConstructor  // final 붙은 필드를 기반으로 아래 생성자 자동으로 만들어줌
 public class MemberRepository {
 
-    @PersistenceContext //JPA 표준 어노테이션
-    private EntityManager em; // JPA 에서 @PersistenceContex 스프링이 생성한 매니저를 EntityManager 에 주입해줌
+    //@PersistenceContext //JPA 표준 어노테이션
+    @Autowired // 스프링에서 스프링 부트 라이브러리를 사용할 때 스프링 데이터 jpa를 쓰면 위의 PersistenceContext를 Autowired로 바꿀 수 있다. (스프링 부트 라이브러리가 지원해줌)
+    private final EntityManager em; // JPA 에서 @PersistenceContex 스프링이 생성한 매니저를 EntityManager 에 주입해줌
+
+//    //MemberRepository 생성자 인젝션 가능하다
+//    public MemberRepository(EntityManager em) {
+//        this.em = em;
+//    }
 
     // 저장 로직
     public void save(Member member) {
