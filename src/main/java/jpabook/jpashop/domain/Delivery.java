@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import static jakarta.persistence.FetchType.*;
+
 @Entity
 @Getter @Setter
 public class Delivery {
@@ -12,7 +14,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery") // Delivery 와 Order 1대1 매핑  (Delivery 와 속 Order 은 거울)
+    @OneToOne(mappedBy = "delivery", fetch = LAZY) // Delivery 와 Order 1대1 매핑  (Delivery 와 속 Order 은 거울)
     private Order order;  // order와의 관계를 가짐
 
     @Embedded
