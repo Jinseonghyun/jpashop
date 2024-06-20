@@ -53,4 +53,54 @@ public class Order {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
+
+    //==생성 메서드==//
+
+    /**
+     * 주문 생성
+     */
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) { // ... 문법 여러개를 넘긴다.!
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER); // 주문 상태
+        order.setOrderDate(LocalDateTime.now()); // 주문 시간 정보
+        return order;
+    }
+
+    //==비즈니스 로직==//
+    /**
+     * 주문 취소 (재고를 원래 수량으로 다시 올려줘야함)
+     */
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.COMP) { // 딜리버리 상태가 == 이미 배송 완료상태 이면 (COMP 배송 완료)
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        }
+
+        this.setStatus(OrderStatus.CANCLE); // 배송 완료 상태 아니면 주문 취소
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();  // 각각의 상품 주문 취소
+        }
+    }
+
+    //==조회 로직==//
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice() {
+// 아래의 코드를 stream으로 정리
+//        return orderItems.stream() .mapToInt(OrderItem::getTotalPrice).sum(); // stream 으로 바꾸고mapToInt하고 sum하면 위와 같다.
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+
+
+
+    }
+
 }
