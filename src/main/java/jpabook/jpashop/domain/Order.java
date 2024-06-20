@@ -1,7 +1,9 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.jms.JmsProperties;
 
@@ -14,6 +16,7 @@ import static jakarta.persistence.FetchType.*;
 @Entity
 @Table(name = "orders") // 안해주면 order 이 되기 때문에 관례상으로 orders 로 지정해줌
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // PROTECTED 범위의 빈 생성자 자동 생성 -> 다른 곳에서 객체 생성 못하도록
 public class Order {
 
     @Id @GeneratedValue
@@ -59,6 +62,7 @@ public class Order {
     /**
      * 주문 생성
      */
+    // static 메서드
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) { // ... 문법 여러개를 넘긴다.!
         Order order = new Order();
         order.setMember(member);
