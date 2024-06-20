@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor  // final 붙은 필드를 기반으로 아래 생성자 자동으로 만들어줌
 public class MemberRepository {
 
-    //@PersistenceContext //JPA 표준 어노테이션
+    //@PersistenceContext //JPA 표준 어노테이션 // // 스프링 부트가 어노테이션에 있으면 아래 매니저를 주입해준다.
     @Autowired // 스프링에서 스프링 부트 라이브러리를 사용할 때 스프링 데이터 jpa를 쓰면 위의 PersistenceContext를 Autowired로 바꿀 수 있다. (스프링 부트 라이브러리가 지원해줌)
     private final EntityManager em; // JPA 에서 @PersistenceContex 스프링이 생성한 매니저를 EntityManager 에 주입해줌
 
@@ -24,7 +24,7 @@ public class MemberRepository {
 
     // 저장 로직
     public void save(Member member) {
-        em.persist(member);  // persist 하면 여기서도 member 객체를 넣는다. // 트래젝션이 커밋되는 시점에 반영됨
+        em.persist(member);  // persist 하면 여기서도 member 객체를 넣는다. // 트래젝션이 커밋되는 시점에 반영됨 // // (커맨드와 쿼리를 분리하자)
     }
 
     // 조회 로직 (단건 조회)
