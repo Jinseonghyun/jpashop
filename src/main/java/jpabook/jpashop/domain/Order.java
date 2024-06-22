@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -27,9 +28,11 @@ public class Order {
     @JoinColumn(name = "member_id")// 맵핑을 뭘로 할거냐  (외래키 이름이 member_id 가 된다.)
     private Member member;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @JsonIgnore
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) // Delivery 와 Order 1대1 매핑
     @JoinColumn(name = "delivery_id")  // Order 와 Delivery 사이에서 연관관계의 주인은 Order 안의 Delivery
     private Delivery delivery;
