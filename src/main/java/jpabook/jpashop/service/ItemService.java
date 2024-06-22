@@ -22,7 +22,7 @@ public class ItemService { // ItemService는 itemRepository 에 단순하게 위
     }
 
     // 조회  // Transactional 따로 안해주기에 맨 위 전체 @Transactional(readOnly = true) 가 먹힌다.
-    public List<Item> findAll() {
+    public List<Item> findItems() {
         return itemRepository.findAll();
     }
 
