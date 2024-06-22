@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -40,5 +42,15 @@ public class MemberController {
 
         memberService.join(member);
         return "redirect:/";  // 첫번 째 페이지로 넘겨버린다.
+    }
+
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members); // "members" 이게 키 이고, members가 꺼내지게 됨
+
+//        model.addAttribute("members", memberService.findMembers()); // "members" 이게 키 이고, memberService.findMembers() 꺼내지게 됨  (위의 2줄을 합친거)
+
+        return "members/memberList"; // 화면에 return 하면 된다.
     }
 }

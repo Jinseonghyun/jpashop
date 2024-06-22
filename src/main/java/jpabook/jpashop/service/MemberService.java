@@ -51,7 +51,7 @@ public class MemberService {
 
     // 회원 전체 조회
     //@Transactional(readOnly = true)  // JPA 가 좀 더 성능 최적화 한다. (젤 위에서 기본값으로 메서드에 해줌으로써 지워준다.)
-    public List<Member> findAll() {
+    public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
