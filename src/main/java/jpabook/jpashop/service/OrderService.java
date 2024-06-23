@@ -25,6 +25,7 @@ public class OrderService {
     private final MemberRepository memberRepository; // 회원에 대해서 주문에서 id 값을 꺼내기 위해
     private final ItemRepository itemRepository; // 회원에 대해서 주문에서 id 값을 꺼내기 위해
 
+    // 비즈니스로직이 영속 상태가 존재하는 상태에서 조회할 수 있다.
     /**
      * 주문
      */
