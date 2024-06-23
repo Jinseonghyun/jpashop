@@ -13,14 +13,14 @@ public class ItemRepository {
 
     private final EntityManager em; // JPA 에서 @PersistenceContex 대신에 스프링이 생성한 매니저를 EntityManager 에 주입해줌
 
-    // 상품 저장
+    // 상품 저장                  // 파라미터로 넘어온 item은 영속성 상태로 변하지 않는다,
     public void save(final Item item) { // item 은 처음 저장할 때는 id가 없다.
         if (item.getId() == null) { // 만약 이미 아이템(id)이  있다는 건 db에 등록된 걸 가져온 것
             em.persist(item); // id 가 없기 때문에 jpa가 제공하는 persist 를 사용해서 등록
         } else {        // id가 없다는 것은 완전히 새로 생성한 객체라는 것 (persist(item) 을 통해서 신규로 등록하는 것)
-            em.merge(item); // merge 업데이트 같은 느낌 (신규 등록이 아닌 db에서 가져온 원래 있던걸 업데이트 하는 느낌)
-        }
-    }
+            Item merge = em.merge(item);// merge 업데이트 같은 느낌 (신규 등록이 아닌 db에서 가져온 원래 있던걸 업데이트 하는 느낌)
+        } // merge가 영속성 컨텍스트에서 관리 되는 객체,  item은 파라미터
+    }      // 뭔가 더 쓸일 있으면 merge 사용해야함
 
     // 아이템 하나 조회 (단건 조회)
     public Item findOne(final Long id) {
